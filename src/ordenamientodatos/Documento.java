@@ -30,6 +30,11 @@ public class Documento {
         return apellido1+" "+apellido2+" "+nombre;
     }
     
+   
+    public boolean equals(Documento d){
+        return getDocumento().equals(d.getDocumento()) && getNombreCompleto().equals(d.getNombreCompleto());
+    }
+    
     // Metodos y atributos estaticos
     //Almacena la lista de documentos
     public static List<Documento> documentos= new ArrayList();
@@ -81,7 +86,7 @@ public class Documento {
         documentos.set(destino, temporal);
     }
     //metodo para verificar si un documento es mayor que otro
-    private static boolean esMayor(Documento d1, Documento d2, int criterio){
+    public static boolean esMayor(Documento d1, Documento d2, int criterio){
         if(criterio==0){
             //ordenar primero por nombre completo y luego por tipo de documento
             return((d1.getNombreCompleto().compareTo(d2.getNombreCompleto())>0) || (d1.getNombreCompleto().equals
@@ -153,6 +158,15 @@ public class Documento {
         int pivote=localizarPivote(inicio, fin, criterio);
         ordenarRapido(inicio,pivote-1,criterio);
         ordenarRapido(pivote+1, fin, criterio);
+    }
+     public static ArbolBinario obtenerArbolBinario(int criterio) {
+        ArbolBinario ab = new ArbolBinario();
+        ab.setCriterio(criterio);
+        for (int i = 0; i < documentos.size(); i++) {
+            Nodo n = new Nodo(documentos.get(i));
+            ab.insertarNodo(n);
+        }
+        return ab;
     }
     
 }
